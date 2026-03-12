@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: apisentinel-backend
+    runtime: docker
+    plan: free
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: APISENTINEL_APP_JWT_SECRET
+        sync: false
+      - key: APP_ENCRYPTION_SECRET_KEY
+        sync: false
+      - key: SPRING_MAIL_USERNAME
+        sync: false
+      - key: SPRING_MAIL_PASSWORD
+        sync: false
+      - key: APISENTINEL_MAIL_CONTACT_TARGET
+        sync: false
+      - key: APISENTINEL_CORS_ALLOWED_ORIGINS
+        value: https://your-frontend-domain.vercel.app
