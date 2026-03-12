@@ -1,5 +1,4 @@
-FROM openjdk:21-slim
-
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
 COPY pom.xml .
