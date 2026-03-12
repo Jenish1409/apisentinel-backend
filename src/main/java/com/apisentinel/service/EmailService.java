@@ -8,6 +8,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class EmailService {
 
@@ -16,11 +18,21 @@ public class EmailService {
     @Autowired(required = false)
     private JavaMailSender mailSender;
 
-    @Value("${spring.mail.username:qwe056770@gmail.com}")
-    private String senderEmail;
+    @Value("${spring.mail.username:}")
+    private String smtpUsername;
+
+    @Value("${APISENTINEL_MAIL_FROM:}")
+    private String fromEmail;
 
     @Value("${apisentinel.mail.contact-target:jenishraichura58@gmail.com}")
     private String contactTargetEmail;
+
+    private String resolveFromEmail() {
+        if (fromEmail != null && !fromEmail.isBlank()) {
+            return fromEmail;
+        }
+        return Objects.requireNonNullElse(smtpUsername, "");
+    }
 
     // ── OTP ─────────────────────────────────────────────────────────────────
     public void sendOtpEmail(String toEmail, String otp) {
@@ -30,7 +42,7 @@ public class EmailService {
                 return;
             }
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(senderEmail);
+            message.setFrom(resolveFromEmail());
             message.setTo(toEmail);
             message.setSubject("ApiSentinel — Your Verification Code");
             message.setText(
@@ -56,7 +68,7 @@ public class EmailService {
                 return;
             }
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(senderEmail);
+            message.setFrom(resolveFromEmail());
             message.setTo(toEmail);
             message.setSubject("[ApiSentinel Admin] " + subject);
             message.setText(body + "\n\n— ApiSentinel Admin Team");
@@ -76,7 +88,7 @@ public class EmailService {
                 return;
             }
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(senderEmail);
+            message.setFrom(resolveFromEmail());
             message.setTo(contactTargetEmail);
             message.setReplyTo(fromEmail);
             message.setSubject("ApiSentinel Contact: " + subject);
@@ -97,7 +109,7 @@ public class EmailService {
                 return;
             }
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(senderEmail);
+            message.setFrom(resolveFromEmail());
             message.setTo(toEmail);
             message.setSubject("🚨 ApiSentinel ALERT: " + apiName + " is DOWN");
             message.setText(
@@ -123,7 +135,7 @@ public class EmailService {
                 return;
             }
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(senderEmail);
+            message.setFrom(resolveFromEmail());
             message.setTo(toEmail);
             message.setSubject("✅ ApiSentinel RECOVERY: " + apiName + " is UP");
             message.setText(
