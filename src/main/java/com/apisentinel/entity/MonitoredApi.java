@@ -1,7 +1,16 @@
 package com.apisentinel.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "monitored_apis")
@@ -26,7 +35,7 @@ public class MonitoredApi {
     @Column(name = "interval_seconds", nullable = false)
     private Integer intervalSeconds;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "enabled", nullable = false)
     private Boolean enabled = true;
 
     @Column(name = "last_checked_at")
@@ -35,10 +44,10 @@ public class MonitoredApi {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "consecutive_failures", nullable = false, columnDefinition = "integer default 0")
+    @Column(name = "consecutive_failures", nullable = false)
     private Integer consecutiveFailures = 0;
 
-    @Column(name = "alert_sent", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "alert_sent", nullable = false)
     private Boolean alertSent = false;
 
     @Column(name = "rate_limit_until")
