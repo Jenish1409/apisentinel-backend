@@ -6,6 +6,8 @@ services:
     dockerContext: ./
     dockerfilePath: ./Dockerfile
     envVars:
+      - key: JAVA_TOOL_OPTIONS
+        value: "-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true"
       - key: SPRING_DATASOURCE_URL
         sync: false
       - key: SPRING_DATASOURCE_USERNAME

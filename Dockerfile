@@ -16,4 +16,4 @@ RUN ./mvnw clean package -DskipTests
 
 EXPOSE 8080
 
-CMD ["sh","-c","java -jar target/*.jar"]
+CMD ["sh","-c","java -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true -jar target/*.jar"]
