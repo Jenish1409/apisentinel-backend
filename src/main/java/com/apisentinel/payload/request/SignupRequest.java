@@ -12,8 +12,8 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 8, max = 40)
     @jakarta.validation.constraints.Pattern(
-        regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-        message = "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+        regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=~?])[A-Za-z\\d!@#$%^&*()_+\\-=~?]{8,}$",
+        message = "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character (!@#$%^&*)"
     )
     private String password;
 
